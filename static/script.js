@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const summarizeBtn = document.getElementById('summarize-btn');
     const copyBtn = document.getElementById('copy-btn');
-    const apiKeyInput = document.getElementById('api-key');
     const youtubeUrlInput = document.getElementById('youtube-url');
     const customCommandInput = document.getElementById('custom-command');
     const summaryContainer = document.getElementById('summary-container');
@@ -11,12 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message');
 
     summarizeBtn.addEventListener('click', async () => {
-        const apiKey = apiKeyInput.value.trim();
         const youtubeUrl = youtubeUrlInput.value.trim();
         const customCommand = customCommandInput.value.trim();
 
-        if (!apiKey || !youtubeUrl) {
-            alert('Please fill in both API Key and YouTube URL fields.');
+        if (!youtubeUrl) {
+            alert('Please fill in the YouTube URL field.');
             return;
         }
 
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    api_key: apiKey,
                     youtube_url: youtubeUrl,
                     custom_command: customCommand,
                 }),

@@ -1,7 +1,10 @@
 import os
 from flask import Flask, render_template, request, jsonify
+from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
 import google.generativeai as genai
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -26,12 +29,12 @@ def index():
 @app.route('/summarize', methods=['POST'])
 def summarize():
     data = request.get_json()
-    api_key = data.get('api_key')
     youtube_url = data.get('youtube_url')
     custom_command = data.get('custom_command')
+    api_key = os.environ.get("GEMINI_API_KEY")
 
     if not api_key:
-        return jsonify({'error': 'API key is missing.'}), 400
+        return jsonify({'error': 'GEMINI_API_KEY not found in environment variables.'}), 500
 
     if not youtube_url:
         return jsonify({'error': 'YouTube URL is missing.'}), 400
@@ -59,7 +62,7 @@ def summarize():
                 transcript_obj = transcript_list[0]
 
         transcript_data = transcript_obj.fetch()
-        transcript = " ".join([d['text'] for d in transcript_data])
+        transcript = " ".join([d.text for d in transcript_data])
     except Exception as e:
         return jsonify({'error': f'Error fetching transcript: {e}'}), 500
 
