@@ -7,7 +7,6 @@ This is a simple web application that uses the YouTube Transcript API and Google
 - Fetches transcripts from YouTube videos.
 - Uses the Gemini API to generate summaries based on user commands.
 - Allows users to specify summary length, language, and format.
-- Securely handles the Gemini API key using environment variables.
 
 ## Setup and Usage
 
@@ -35,19 +34,7 @@ Install the required Python packages.
 pip install -r requirements.txt
 ```
 
-### 4. Set Your API Key
-
-The application requires a Google Gemini API key. It loads the key from a `.env` file.
-
-- Make a copy of the example file `.env.example` and name it `.env`.
-- Open the `.env` file and replace `"YOUR_API_KEY_HERE"` with your actual Gemini API key.
-
-```
-# .env file
-GEMINI_API_KEY="AIza..................."
-```
-
-### 5. Run the Application
+### 4. Run the Application
 
 Start the Flask development server.
 
