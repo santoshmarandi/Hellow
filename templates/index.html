@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Summarizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Video Summarizer</h1>
+
+        <div class="input-group">
+            <label for="api-key">Gemini API Key</label>
+            <input type="password" id="api-key" placeholder="Enter your Gemini API Key">
+        </div>
+
+        <div class="input-group">
+            <label for="youtube-url">YouTube Video URL</label>
+            <input type="text" id="youtube-url" placeholder="Enter YouTube Video URL">
+        </div>
+
+        <div class="input-group">
+            <label for="custom-command">Command</label>
+            <textarea id="custom-command" rows="4" placeholder="e.g., Provide a short summary in English with bullet points."></textarea>
+        </div>
+
+        <button id="summarize-btn">Summarize</button>
+
+        <div id="summary-container" class="hidden">
+            <h2>Summary</h2>
+            <div id="summary-text"></div>
+            <button id="copy-btn">Copy Summary</button>
+        </div>
+
+        <div id="loading" class="hidden">
+            <p>Summarizing, please wait...</p>
+        </div>
+
+        <div id="error-container" class="hidden">
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
