@@ -1,12 +1,10 @@
-import os
 from flask import Flask, render_template, request, jsonify
-from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
 import google.generativeai as genai
 
-load_dotenv()
-
 app = Flask(__name__)
+
+GEMINI_API_KEY = "AIzaSyBZssPgpTsXPRuM1raxq2USMS5bYcJGLMo"
 
 def extract_video_id(url):
     video_id = None
@@ -31,10 +29,10 @@ def summarize():
     data = request.get_json()
     youtube_url = data.get('youtube_url')
     custom_command = data.get('custom_command')
-    api_key = os.environ.get("GEMINI_API_KEY")
+    api_key = GEMINI_API_KEY
 
     if not api_key:
-        return jsonify({'error': 'GEMINI_API_KEY not found in environment variables.'}), 500
+        return jsonify({'error': 'GEMINI_API_KEY is not set in app.py.'}), 500
 
     if not youtube_url:
         return jsonify({'error': 'YouTube URL is missing.'}), 400
@@ -83,7 +81,7 @@ def summarize():
     """
 
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-pro')
         response = model.generate_content(prompt)
         summary = response.text
         return jsonify({'summary': summary})
