@@ -83,7 +83,7 @@ def summarize():
     """
 
     try:
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         response = model.generate_content(prompt)
         summary = response.text
         return jsonify({'summary': summary})
