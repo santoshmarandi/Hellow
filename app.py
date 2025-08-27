@@ -51,15 +51,9 @@ def summarize():
 
         api = YouTubeTranscriptApi()
         transcript_list = api.list(video_id)
-        # Try to find a manual transcript in English, fallback to a generated one
-        try:
-            transcript_obj = transcript_list.find_manually_created_transcript(['en'])
-        except:
-            try:
-                transcript_obj = transcript_list.find_generated_transcript(['en'])
-            except:
-                # If no English transcript is found, just take the first one
-                transcript_obj = transcript_list[0]
+        # Find a transcript in either English or Hindi, prioritizing English.
+        # This is more robust than the previous implementation.
+        transcript_obj = transcript_list.find_transcript(['en', 'hi'])
 
         transcript_data = transcript_obj.fetch()
         transcript = " ".join([d.text for d in transcript_data])
