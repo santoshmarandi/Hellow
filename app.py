@@ -27,11 +27,19 @@ def index():
 
 # Route to handle the summarization
 @app.route('/summarize', methods=['POST'])
+
 def summarize():
     data = request.get_json()
     youtube_url = data.get('youtube_url')
     custom_command = data.get('custom_command')
-    api_key = os.environ.get("GEMINI_API_KEY")
+    
+    # यहाँ अपनी API कुंजी सीधे स्ट्रिंग के रूप में डालें
+    api_key = "AIzaSyBZssPgpTsXPRuM1raxq2USMS5bYcJGLMo"
+
+    if not api_key:
+        return jsonify({'error': 'GEMINI_API_KEY not found in environment variables.'}), 400
+
+    # ...बाकी कोड पहले जैसा ही रहेगा
 
     if not api_key:
         return jsonify({'error': 'GEMINI_API_KEY not found in environment variables.'}), 500
